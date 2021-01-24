@@ -1,0 +1,46 @@
+package com.elouyi.yuiue.util
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import com.elouyi.yuiue.ElyApplication
+import java.security.MessageDigest
+
+fun md5(str: String) : String{
+    try {
+        val instance : MessageDigest = MessageDigest.getInstance("MD5")
+        val digest : ByteArray = instance.digest(str.toByteArray())
+        var sb = StringBuffer()
+        for (b in digest){
+            var i : Int = b.toInt() and 0xff
+            var hexString = Integer.toHexString(i)
+            if (hexString.length < 2){
+                hexString = "0" + hexString
+            }
+            sb.append(hexString)
+        }
+        return sb.toString()
+    }catch (e : Exception){
+        e.printStackTrace()
+    }
+    return ""
+}
+
+/**
+ * 启动 Activity 的工具函数
+ * eg：launchActivity<MainActivity>()
+ */
+inline fun <reified T> AppCompatActivity.launchActivity(){
+    launchActivity<T>{}
+}
+
+/**
+ * 启动一个带 [Intent] 参数的 Activity
+ * eg: launchActivity<MainActivity>{ putExtra("p","v") }
+ */
+inline fun <reified T> AppCompatActivity.launchActivity(block: Intent.() -> Unit){
+    Intent(this,T::class.java).apply {
+        block()
+        this@launchActivity.startActivity(this)
+    }
+}
+
