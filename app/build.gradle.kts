@@ -32,6 +32,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildFeatures {
         viewBinding = true
     }
@@ -44,6 +48,9 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.lifecycle","lifecycle-livedata","2.2.0")
     implementation("androidx.lifecycle","lifecycle-extensions","2.2.0")
+    implementation("androidx.lifecycle","lifecycle-viewmodel-ktx","2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0")
+    implementation("androidx.activity:activity-ktx:1.1.0")
     implementation("com.google.android.material:material:1.1.0")
     implementation("com.squareup.okhttp3","okhttp","4.9.0")
     implementation("org.jetbrains.kotlinx","kotlinx-coroutines-core","1.4.2")

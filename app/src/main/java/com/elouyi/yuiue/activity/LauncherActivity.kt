@@ -16,7 +16,7 @@ class LauncherActivity: ElyActivity() {
         val scope = CoroutineScope(Job())
         scope.launch {
             delay(3000L)
-            launchActivity<MainActivity>()
+            launchActivity<LoginActivity>()
             finish()
         }
     }
