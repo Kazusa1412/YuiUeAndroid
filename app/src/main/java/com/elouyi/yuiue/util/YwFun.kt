@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.elouyi.yuiue.ElyApplication
 import java.security.MessageDigest
 
+/**
+ * md5 的工具函数
+ */
 fun md5(str: String) : String{
     try {
         val instance : MessageDigest = MessageDigest.getInstance("MD5")
@@ -30,7 +33,7 @@ fun md5(str: String) : String{
  * eg：launchActivity<MainActivity>()
  * eg: launchActivity<MainActivity>{ putExtra("p","v") }
  */
-inline fun <reified T> AppCompatActivity.launchActivity(block: Intent.() -> Unit = {}) = Intent(this,T::class.java).run {
+inline fun <reified T: AppCompatActivity> AppCompatActivity.launchActivity(block: Intent.() -> Unit = {}) = Intent(this,T::class.java).run {
     block()
     this@launchActivity.startActivity(this)
 }
