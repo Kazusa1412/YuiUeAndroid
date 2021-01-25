@@ -9,12 +9,12 @@ fun md5(str: String) : String{
     try {
         val instance : MessageDigest = MessageDigest.getInstance("MD5")
         val digest : ByteArray = instance.digest(str.toByteArray())
-        var sb = StringBuffer()
+        val sb = StringBuffer()
         for (b in digest){
-            var i : Int = b.toInt() and 0xff
+            val i : Int = b.toInt() and 0xff
             var hexString = Integer.toHexString(i)
             if (hexString.length < 2){
-                hexString = "0" + hexString
+                hexString = "0$hexString"
             }
             sb.append(hexString)
         }
@@ -26,21 +26,14 @@ fun md5(str: String) : String{
 }
 
 /**
- * 启动 Activity 的工具函数
- * eg：launchActivity<MainActivity>()
- */
-inline fun <reified T> AppCompatActivity.launchActivity(){
-    launchActivity<T>{}
-}
-
-/**
  * 启动一个带 [Intent] 参数的 Activity
+ * eg：launchActivity<MainActivity>()
  * eg: launchActivity<MainActivity>{ putExtra("p","v") }
  */
-inline fun <reified T> AppCompatActivity.launchActivity(block: Intent.() -> Unit){
-    Intent(this,T::class.java).apply {
-        block()
-        this@launchActivity.startActivity(this)
-    }
+inline fun <reified T> AppCompatActivity.launchActivity(block: Intent.() -> Unit = {}) = Intent(this,T::class.java).run {
+    block()
+    this@launchActivity.startActivity(this)
 }
+
+
 
