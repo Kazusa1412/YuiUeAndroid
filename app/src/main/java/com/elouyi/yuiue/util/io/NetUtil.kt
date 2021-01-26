@@ -62,7 +62,7 @@ private fun sendHttpRequest(address: String,callback: YwCallback){
         .build()
     val response: String?
     try {
-        response = client.newCall(request).execute().body?.string()
+        response = client.newCall(request).execute().body()?.string()
         if (response != null){
             callback.onSuccess(response)
         }else{

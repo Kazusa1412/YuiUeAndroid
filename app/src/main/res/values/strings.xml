@@ -3,4 +3,8 @@
     <string name="settings">settings</string>
     <string name="password">password</string>
     <string name="login">Login</string>
+    <string name="accountFormError">account length less than 3</string>
+    <string name="passwordFormError">password length less than 3</string>
+    <string name="loginLabel">loginLabel</string>
+    <string name="btn_login">btn_login</string>
 </resources>

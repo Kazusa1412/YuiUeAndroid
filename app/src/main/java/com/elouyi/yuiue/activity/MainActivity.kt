@@ -1,7 +1,7 @@
-package com.elouyi.yuiue
+package com.elouyi.yuiue.activity
 
 import android.os.Bundle
-import com.elouyi.yuiue.activity.ElyActivity
+import com.elouyi.yuiue.R
 
 class MainActivity : ElyActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

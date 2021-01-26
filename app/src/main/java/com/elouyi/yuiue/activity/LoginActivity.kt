@@ -1,17 +1,25 @@
 package com.elouyi.yuiue.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.content.edit
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.SavedStateViewModelFactory
-import androidx.lifecycle.ViewModelProviders
-import com.elouyi.yuiue.ElyApplication
 import com.elouyi.yuiue.R
 import com.elouyi.yuiue.databinding.ActivityLoginBinding
 import com.elouyi.yuiue.jetpack.observer.YwObserver
 import com.elouyi.yuiue.jetpack.viewModel.LoginViewModel
+import com.elouyi.yuiue.retrofit.LoginResponse
+import com.elouyi.yuiue.retrofit.NormalResponse
+import com.elouyi.yuiue.retrofit.LoginService
+import com.elouyi.yuiue.retrofit.ServerCreater
+import com.elouyi.yuiue.util.checkAccount
+import com.elouyi.yuiue.util.checkPassword
+import com.elouyi.yuiue.util.launchActivity
+import com.elouyi.yuiue.yw.YwObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : ElyActivity() {
 
@@ -28,8 +36,8 @@ class LoginActivity : ElyActivity() {
 
     private fun setViewEvent(){
         binding.etLoginAccount.addTextChangedListener {
-            if (it.toString().length < 6){
-                binding.tilLoginAccount.error = "小于六个字儿"
+            if (!checkAccount(it.toString())){
+                binding.tilLoginAccount.error = resources.getString(R.string.accountFormError)
             }else{
                 binding.tilLoginAccount.error = null
             }
@@ -48,11 +56,52 @@ class LoginActivity : ElyActivity() {
                 }
             }
         }
+        binding.btLogin.setOnClickListener {
+            login()
+        }
         viewModel.account.observe(this){
 
         }
         viewModel.password.observe(this){
 
         }
+    }
+
+    fun login(){
+        if (!checkAccount(binding.etLoginAccount.text.toString())
+            || !checkPassword(binding.etLoginPwd.text.toString()))
+            return
+
+        val loginService = ServerCreater.create<LoginService>()
+        loginService.login(viewModel.account.value,viewModel.password.value).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>,
+            ) {
+                val res = response.body()
+                res?.let {
+                    when(it.result_code){
+                        0 -> {
+                            YwObject.loginUser = it.uedata
+                            getSharedPreferences("user", MODE_PRIVATE).edit {
+                                putString("token",YwObject.loginUser.token)
+                                putLong("tokenE",System.currentTimeMillis())
+                            }
+                            launchActivity<MainActivity>()
+                            finish()
+                        }
+                        else ->{
+                            Log.w("登录错误:",it.message)
+                            return@let
+                        }
+                    }
+                }
+                Log.e(tag,"登录res为空")
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
     }
 }

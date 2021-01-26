@@ -1,7 +1,6 @@
 package com.elouyi.yuiue.activity
 
 import android.os.Bundle
-import com.elouyi.yuiue.MainActivity
 import com.elouyi.yuiue.R
 import com.elouyi.yuiue.util.launchActivity
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +14,7 @@ class LauncherActivity: ElyActivity() {
         setContentView(R.layout.activity_launcher)
         val scope = CoroutineScope(Job())
         scope.launch {
-            delay(3000L)
+            delay(2000L)
             launchActivity<LoginActivity>()
             finish()
         }

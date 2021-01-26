@@ -36,17 +36,19 @@
         android:layout_height="wrap_content"
         app:errorEnabled="true"
         app:errorTextAppearance="@color/red"
-        app:hintTextAppearance="@style/hintAppearance"
+
         app:hintTextColor="@color/red"
         app:errorTextColor="@color/red"
+        app:boxBackgroundMode="none"
         android:layout_gravity="center">
         <EditText
             android:id="@+id/et_loginAccount"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="#00FFFFFF"
+            android:background="@drawable/et_shape"
             android:hint="zzz"
+            android:backgroundTint="@color/pink"
             android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -73,5 +75,12 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="@string/btn_login"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
