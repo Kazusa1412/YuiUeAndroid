@@ -17,6 +17,7 @@ import com.elouyi.yuiue.util.checkAccount
 import com.elouyi.yuiue.util.checkPassword
 import com.elouyi.yuiue.util.launchActivity
 import com.elouyi.yuiue.yw.YwObject
+import com.elouyi.yuiue.yw.extension.login
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,6 +58,9 @@ class LoginActivity : ElyActivity() {
             }
         }
         binding.btLogin.setOnClickListener {
+            if (!checkAccount(binding.etLoginAccount.text.toString())
+                || !checkPassword(binding.etLoginPwd.text.toString()))
+                return@setOnClickListener
             login()
         }
         viewModel.account.observe(this){
@@ -66,42 +70,7 @@ class LoginActivity : ElyActivity() {
 
         }
     }
-
     fun login(){
-        if (!checkAccount(binding.etLoginAccount.text.toString())
-            || !checkPassword(binding.etLoginPwd.text.toString()))
-            return
-
-        val loginService = ServerCreater.create<LoginService>()
-        loginService.login(viewModel.account.value,viewModel.password.value).enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(
-                call: Call<LoginResponse>,
-                response: Response<LoginResponse>,
-            ) {
-                val res = response.body()
-                res?.let {
-                    when(it.result_code){
-                        0 -> {
-                            YwObject.loginUser = it.uedata
-                            getSharedPreferences("user", MODE_PRIVATE).edit {
-                                putString("token",YwObject.loginUser.token)
-                                putLong("tokenE",System.currentTimeMillis())
-                            }
-                            launchActivity<MainActivity>()
-                            finish()
-                        }
-                        else ->{
-                            Log.w("登录错误:",it.message)
-                            return@let
-                        }
-                    }
-                }
-                Log.e(tag,"登录res为空")
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
+        login(viewModel.account.value,viewModel.password.value)
     }
 }

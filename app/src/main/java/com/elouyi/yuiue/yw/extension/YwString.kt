@@ -1,4 +1,4 @@
-package com.elouyi.yuiue.util.extension
+package com.elouyi.yuiue.yw.extension
 
 import android.widget.Toast
 import com.elouyi.yuiue.ElyApplication
