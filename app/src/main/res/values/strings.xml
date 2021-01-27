@@ -7,4 +7,6 @@
     <string name="passwordFormError">password length less than 3</string>
     <string name="loginLabel">loginLabel</string>
     <string name="btn_login">btn_login</string>
+    <string name="logining">logining</string>
+    <string name="loading">loading</string>
 </resources>

@@ -1,14 +1,17 @@
 package com.elouyi.yuiue.retrofit
 
+import com.elouyi.yuiue.yw.LoginUser
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+
 interface LoginService {
 
+
     @GET("login")
-    fun login(
+    fun ueLogin(
         @Query("account") account: String?,
         @Query("password") password: String?
-    ): Call<LoginResponse>
+    ): Call<BaseResponse<LoginUser>>
 }

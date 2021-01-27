@@ -1,31 +1,25 @@
 package com.elouyi.yuiue.activity
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.core.content.edit
 import androidx.core.widget.addTextChangedListener
 import com.elouyi.yuiue.R
 import com.elouyi.yuiue.databinding.ActivityLoginBinding
 import com.elouyi.yuiue.jetpack.observer.YwObserver
 import com.elouyi.yuiue.jetpack.viewModel.LoginViewModel
-import com.elouyi.yuiue.retrofit.LoginResponse
-import com.elouyi.yuiue.retrofit.NormalResponse
-import com.elouyi.yuiue.retrofit.LoginService
-import com.elouyi.yuiue.retrofit.ServerCreater
 import com.elouyi.yuiue.util.checkAccount
 import com.elouyi.yuiue.util.checkPassword
 import com.elouyi.yuiue.util.launchActivity
-import com.elouyi.yuiue.yw.YwObject
-import com.elouyi.yuiue.yw.extension.login
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.elouyi.yuiue.yw.YW_OK
+import com.elouyi.yuiue.yw.extension.showToast
 
 class LoginActivity : ElyActivity() {
 
-    lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +27,11 @@ class LoginActivity : ElyActivity() {
         setContentView(binding.root)
         lifecycle.addObserver(YwObserver())
         setViewEvent()
+        progressDialog = ProgressDialog(this).apply {
+            setCancelable(false)
+            title = resources.getString(R.string.logining)
+            setMessage(resources.getString(R.string.loading))
+        }
     }
 
     private fun setViewEvent(){
@@ -61,7 +60,20 @@ class LoginActivity : ElyActivity() {
             if (!checkAccount(binding.etLoginAccount.text.toString())
                 || !checkPassword(binding.etLoginPwd.text.toString()))
                 return@setOnClickListener
-            login()
+            progressDialog.show()
+            viewModel.login()
+        }
+        viewModel.loginMessage.observe(this){
+            progressDialog.dismiss()
+            when(it){
+                YW_OK -> {
+                    launchActivity<MainActivity>()
+                }
+                else ->{
+                    Log.w("登陆失败:",it)
+                    "登陆失败 $it".showToast()
+                }
+            }
         }
         viewModel.account.observe(this){
 
@@ -69,8 +81,5 @@ class LoginActivity : ElyActivity() {
         viewModel.password.observe(this){
 
         }
-    }
-    fun login(){
-        login(viewModel.account.value,viewModel.password.value)
     }
 }
