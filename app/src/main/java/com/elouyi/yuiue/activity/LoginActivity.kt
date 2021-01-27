@@ -68,6 +68,7 @@ class LoginActivity : ElyActivity() {
             when(it){
                 YW_OK -> {
                     launchActivity<MainActivity>()
+                    finish()
                 }
                 else ->{
                     Log.w("登陆失败:",it)

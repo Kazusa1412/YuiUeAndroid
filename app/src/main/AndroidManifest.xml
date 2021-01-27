@@ -2,20 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.elouyi.yuiue">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".ElyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/yue"
-        android:networkSecurityConfig="@xml/network_config"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_config"
         android:roundIcon="@mipmap/yue_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YuiUe">
+        <activity android:name=".activity.ZhuceActivity"></activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/loginLabel"/>
+            android:label="@string/loginLabel" />
         <activity android:name=".activity.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

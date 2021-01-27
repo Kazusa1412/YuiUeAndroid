@@ -23,7 +23,14 @@ class ExampleUnitTest {
             append("zzz\n")
             append("bbb")
         }
-        println(str)
+        val list = listOf("asdadassd","daswa","da","dasdd")
+        val max = list.maxByOrNull { it.length }
+        println(max)
+
+        val a = listOf(1,2,3,45)
+        val b = listOf(5,6,8,1,2,0)
+
+
     }
 
     @Test
@@ -37,3 +44,4 @@ class ExampleUnitTest {
         }
     }
 }
+
