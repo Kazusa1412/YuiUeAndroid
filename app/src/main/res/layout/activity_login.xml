@@ -83,4 +83,12 @@
         android:text="@string/btn_login"
         android:layout_gravity="center"/>
 
+    <Button
+        android:id="@+id/bt_loin_zhuce"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="@string/btn_login_zhuce"
+        android:layout_gravity="center"/>
+
 </LinearLayout>

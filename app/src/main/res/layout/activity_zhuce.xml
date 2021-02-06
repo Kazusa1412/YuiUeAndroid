@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.ZhuceActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        android:layout_marginTop="60dp"
+        android:id="@+id/til_ZhuceAccount"
+        android:layout_gravity="center"
+        app:boxBackgroundMode="none">
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/account"
+            android:layout_gravity="center"
+            android:id="@+id/et_zhucAccount"
+            android:background="@drawable/et_shape"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:errorEnabled="true"
+        android:hint="@string/password"
+        android:layout_marginTop="60dp"
+        android:id="@+id/til_ZhucePwd"
+        app:boxBackgroundMode="none">
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/et_zhucPwd"
+            android:background="@drawable/et_shape"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:errorEnabled="true"
+        android:hint="@string/username"
+        android:layout_marginTop="60dp"
+        android:id="@+id/til_ZhuceUsername"
+        app:boxBackgroundMode="none">
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/et_zhuceUsername"
+            android:background="@drawable/et_shape"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_zhuce"
+        android:textAllCaps="false"
+        android:text="@string/signup"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

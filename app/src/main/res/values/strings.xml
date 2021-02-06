@@ -9,4 +9,10 @@
     <string name="btn_login">btn_login</string>
     <string name="logining">logining</string>
     <string name="loading">loading</string>
+    <string name="btn_login_zhuce">btn_login_zhuce</string>
+    <string name="account">account</string>
+    <string name="signup">sign up</string>
+    <string name="signupOk">signup success</string>
+    <string name="signupFail">signup fail</string>
+    <string name="username">username</string>
 </resources>

@@ -29,9 +29,16 @@ class LoginActivity : ElyActivity() {
         setViewEvent()
         progressDialog = ProgressDialog(this).apply {
             setCancelable(false)
-            title = resources.getString(R.string.logining)
+            setTitle(resources.getString(R.string.logining))
             setMessage(resources.getString(R.string.loading))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sp = getSharedPreferences("user", MODE_PRIVATE)
+        binding.etLoginAccount.setText(sp.getString("account",""))
+        binding.etLoginPwd.setText(sp.getString("password",""))
     }
 
     private fun setViewEvent(){
@@ -62,6 +69,9 @@ class LoginActivity : ElyActivity() {
                 return@setOnClickListener
             progressDialog.show()
             viewModel.login()
+        }
+        binding.btLoinZhuce.setOnClickListener {
+            launchActivity<ZhuceActivity>()
         }
         viewModel.loginMessage.observe(this){
             progressDialog.dismiss()

@@ -9,4 +9,9 @@
     <string name="btn_login">btn_login</string>
     <string name="logining">登录中</string>
     <string name="loading">loading</string>
+    <string name="account">账号</string>
+    <string name="signup">注册</string>
+    <string name="signupOk">注册成功</string>
+    <string name="signupFail">注册失败</string>
+    <string name="username">昵称</string>
 </resources>
