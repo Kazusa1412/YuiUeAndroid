@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/yue_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YuiUe">
-        <activity android:name=".activity.ZhuceActivity"></activity>
+        <service
+            android:name=".yw.component.YuiChatService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".activity.ChatRoomActivity" />
+        <activity android:name=".activity.ZhuceActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/loginLabel" />

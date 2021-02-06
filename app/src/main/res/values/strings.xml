@@ -15,4 +15,6 @@
     <string name="signupOk">signup success</string>
     <string name="signupFail">signup fail</string>
     <string name="username">username</string>
+    <string name="chatRoom">Chat Room</string>
+    <string name="send">send</string>
 </resources>

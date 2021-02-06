@@ -14,4 +14,6 @@
     <string name="signupOk">注册成功</string>
     <string name="signupFail">注册失败</string>
     <string name="username">昵称</string>
+    <string name="chatRoom">聊天室</string>
+    <string name="send">发送</string>
 </resources>
