@@ -11,7 +11,10 @@ import com.elouyi.yuiue.R
 import com.elouyi.yuiue.databinding.ActivityChatRoomBinding
 import com.elouyi.yuiue.jetpack.viewModel.ChatRoomViewModel
 import com.elouyi.yuiue.util.YwMsg
+import com.elouyi.yuiue.yw.YwObject
 import com.elouyi.yuiue.yw.component.YuiChatService
+import com.elouyi.yuiue.yw.pojo.ElyMsg
+import com.google.gson.Gson
 
 class ChatRoomActivity : ElyActivity() {
 
@@ -56,7 +59,6 @@ class ChatRoomActivity : ElyActivity() {
             val msg = binding.etChatRoom.text.toString()
             if (msg.isEmpty()) return@setOnClickListener
             binding.etChatRoom.setText("")
-            viewModel.msgList.value?.add(YwMsg(msg,YwMsg.TYPE_SENT))
             sendMsg(msg)
         }
 
@@ -74,15 +76,23 @@ class ChatRoomActivity : ElyActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-       unbindService(connection)
+        unbindService(connection)
         unregisterReceiver(receiver)
+        stopService(Intent(this,YuiChatService::class.java))
     }
 
     inner class YuiMsgReceiver : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
-            val msg = intent?.extras?.getString("newMsg")
+            val msg = Gson().fromJson(intent?.extras?.getString("newMsg"),ElyMsg::class.java)
             msg?.let{
-                viewModel.getMsgList()?.add(YwMsg(msg,YwMsg.TYPE_RECEIVED))
+                viewModel.getMsgList()?.add(
+                    YwMsg("${msg.from} : ${msg.content}",
+                        if (msg.from == YwObject.loginUser.user_name) YwMsg.TYPE_SENT else YwMsg.TYPE_RECEIVED))
+
+                val position = viewModel.getMsgList()?.size?.minus(1)
+                viewModel.getAdapter()?.notifyItemInserted(position!!)
+                binding.recChatRoom.scrollToPosition(position!!)
+                Log.v("收到广播",msg.content)
             }
         }
     }
